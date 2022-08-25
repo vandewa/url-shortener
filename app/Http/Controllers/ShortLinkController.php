@@ -161,7 +161,7 @@ class ShortLinkController extends Controller
                         }
                     })
                     ->editColumn('link', function ($a) {
-                        return '<a target="_blank" href="'.url('/'.$a->link).'">'.url('/'.$a->link).'</a>'  ;
+                        return '<a target="_blank" href="'.url($a->link).'">'.url($a->link).'</a>'  ;
                     })
                     ->rawColumns(['link', 'status'])
                     ->make(true);

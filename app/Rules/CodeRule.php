@@ -19,7 +19,7 @@ class CodeRule implements InvokableRule
     {
         $a = ShortLink::where('code', $value)->where('created_at','>', DB::raw("date_sub(curdate(),interval 30 day)"))->first();
         if($a){
-            $fail('devan');
+            $fail('ggal');
         }
         
     }

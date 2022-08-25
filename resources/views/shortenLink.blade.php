@@ -1,108 +1,208 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="shortcut icon" href="{{ asset('image/pemda.ico')}}">
-    <title>URL SHORTENER KABUPATEN WONOSOBO</title>
-    <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="csrf-token" content="{{csrf_token()}}">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/af-2.4.0/b-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/> --}}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.css"/>
- 
-</head>
-<body class="img js-fullheight" style="background-image:url({{ asset('image/aaa.png') }})">
-   
-<div class="container">
-    <div class="card mt-5">
-        <div class="card-header">
-          <center><h1>URL SHORTENER KABUPATEN WONOSOBO</h1></center>
-          <hr>
-        <form method="POST" action="{{ route('generate-shorten-link.store') }}">
-            @csrf
-            <div class="input-group mb-3">
-              <input type="text" name="link" id="link" class="form-control" placeholder="Enter Long URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
+@extends('main')
+
+@section('container')
+  <!-- ========== MAIN CONTENT ========== -->
+  <main id="content" role="main">
+    <!-- Hero Section -->
+    <div class="overflow-hidden">
+      <div class="container space-top-1 space-top-md-2 space-bottom-3">
+        <div class="row justify-content-lg-between align-items-md-center">
+          <div class="col-md-6 col-lg-5 mb-7 mb-md-0">
+            <div class="mb-5">
+              {{-- <span class="d-block small font-weight-bold text-cap mb-2">Who we are?</span>
+              <h1 class="display-4 mb-3">The Shortest Link Shortener</h1>
+              <p class="lead">Kabupaten Wonosobo</p> --}}
+              <img src="{{ asset('image/a.gif') }}" alt="" style="width: 100%">
             </div>
-            <div class="input-group">
-                <a href="#" role="button" class="btn btn-info btn-xs" id="label-btn"  aria-disabled="true">{{ url('') }}/</a>
-                <input type="text" id="generate" name="code" class="form-control" placeholder="Enter Short URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            </div>
-            <div class="d-flex justify-content-end input-group-append mt-3">
-                <button class="btn btn-success" type="submit">Generate Shorten Link</button>
-            </div>
-        </form>
-      </div>
-      <div class="card-body">
-   
-            @if (Session::has('success'))
-                <div class="alert alert-success">
-                    <p>{{ Session::get('success') }}</p>
+            <!-- Form -->
+              <form method="POST" action="{{ route('generate-shorten-link.store') }}">
+                @csrf
+                <div class="input-group mb-3">
+                  <input type="text" name="link" id="link" class="form-control" placeholder="Enter Long URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 </div>
-            @endif
-            <div class="table-responsive"> 
-            <table class="table devan ">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Short Link</th>
-                        <th>Link</th>
-                        <th>Status</th>
-                        {{-- <th>Aksi</th> --}}
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+                <div class="input-group">
+                    <a href="#" role="button" class="btn btn-dark" id="label-btn"  aria-disabled="true">{{ url('') }}/</a>
+                    <input type="text" id="generate" name="code" class="form-control" placeholder="Enter Short URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+                <div class="d-flex justify-content-end input-group-append mt-3">
+                    <button class="btn btn-info" type="submit">Generate Shorten Link</button>
+                </div>
+            </form>
+              <!-- End Form -->
+          </div>
+
+          <div class="col-md-6">
+            <div class="position-relative">
+              <img class="img-fluid rounded-lg transition-3d-hover butn2" src="{{ asset('image/indonesia-independence-day.svg')}}" alt="Image Description">
+              {{-- <div class="position-absolute top-0 right-0 w-100 h-100 bg-soft-primary rounded-lg z-index-n1 mt-5 mr-n5"></div> --}}
             </div>
+          </div>
+
+          <div class="card-body">
+              @if (Session::has('success'))
+                  <div class="alert alert-success">
+                      <p>{{ Session::get('success') }}</p>
+                  </div>
+              @endif
+            <div class="table-responsive"> 
+              <table class="table table-hover devan ">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th>#</th>
+                          <th>Short Link</th>
+                          <th>Link</th>
+                          <th>Status</th>
+                          {{-- <th>Aksi</th> --}}
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-</div>
+    <!-- End Hero Section -->
+  </main>
+  <!-- ========== END MAIN CONTENT ========== -->
+@endsection
 
-{{-- <footer style="position: fixed;
-bottom: 0;
-width: 100%;">
-    <div class="col-md-12">
-        <div class="p-0">
-            <marquee bgcolor="#00000" direction="left" align="center"  scrollamount="2" style="color: #fdf7fb; font-weight: bold;">Diskominfo &copy {{date('Y')}} Devan Dewananta</marquee>
-        </div>
-    </div>
-</footer> --}}
+@push('css')
+<style>
+  ::-webkit-scrollbar{
+      width: 9px;
+      border-radius: 0px;
+      background: black;
+  }
+  ::-webkit-scrollbar-thumb{
+      background: white;
+      border-radius: 10px;
+      cursor: pointer;
+  }
+  ::-webkit-scrollbar-thumb:hover{
+      background: rgb(165, 165, 165);
+  }
+  ::-webkit-scrollbar-track{
+      background: #121212;
+      border-radius: 10px;
+  }
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/af-2.4.0/b-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-<script src="{{ asset('js/sweetalert211.js') }}"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
-<script>
-    $(function(){
-        $(".alert").delay(3000).slideUp(300);
-    });
-</script>
+  /*BUTTONS*/
+  .btn1{
+      background: rgb(180, 154, 196);
+  }
+  .butn1{
+      color: white;
+      background: rgb(0, 0, 0);
+  }
+  .butn1:hover{
+      box-shadow: 5px 5px red,
+      -5px -5px cyan;
+      text-shadow: 3px 0px red,
+      -3px 0px cyan;
+      border-radius: 15px;
+  }
+  /*2*/
+  .btn2{
+      background: rgb(94, 172, 172);
+  }
+  .butn2{
+      color: white;
+      /* background: black; */
+  }
+  .butn2:hover{
+      transform: translateY(-20px);
+      box-shadow: 0px 44px 35px 0px rgb(48, 48, 48);
+  }
+  /*3*/
+  .btn3{
+      background:goldenrod;
+  }
+  .butn3{
+      color: white;
+      background: black;
+  }
+  .butn3:hover{
+      width: 200px;
+      letter-spacing: 8px;
+  }
+  /*4*/
+  .btn4{
+      background: crimson;
+  }
+  .butn4{
+      color: white;
+      background: black;
+  }
+  .butn4:hover{
+      transform: rotate(720deg);
+  }
+  /*5*/
+  .btn5{
+      background: palegreen;
+  }
+  .butn5{
+      color: white;
+      background: black;
+  }
+  .butn5:hover{
+      animation: bd 8s infinite alternate;
+  }
+  @keyframes bd {
+      0%{border-radius: 20% 30% 40% 50% / 59% 11% 30% 70%;}
+      30%{border-radius: 56% 73% 12% 38% / 80% 25% 95% 50%;}
+      50%{border-radius: 26% 25% 90% 70% / 40% 85% 21% 49%;}
+      60%{border-radius: 86% 45% 69% 45% / 69% 78% 79% 23%;}
+      70%{border-radius: 78% 34% 73% 56% / 12% 43% 14% 34%;}
+      100%{border-radius: 81% 86% 76% 96% / 45% 68% 31% 76%;}
+  }
+  /*6*/
+  .btn6{
+      background: darkolivegreen;
+  }
+  .butn6{
+      color: white;
+      background: black;
+  }
+  .butn6:hover{
+      background: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      width: 110px;
+      height: 110px;
+      border-radius: 70%;
+      animation: bounce 3s infinite;
+  }
+  @keyframes bounce {
+      0%, 20%, 50%, 80%, 100%{transform: translateY(0);}
+      40%{transform: translateY(-40px);}
+      60%{transform: translateY(-15px);}
+  }
+</style>
+@endpush
 
+@push('js')
 <script type="text/javascript">
-const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-function generateString(length) {
-    let result = ' ';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+  function generateString(length) {
+      let result = '';
+      const charactersLength = characters.length;
+      for ( let i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
 
-    return result;
-}
+      return result;
+  }
 
-$('#link').change(function(){
-    let a = $('#generate').val();
-        if(a.length <=0){
-            $('#generate').val(generateString(8));
-        }
-});
+  $('#link').change(function(){
+      let a = $('#generate').val();
+          if(a.length <=0){
+              $('#generate').val(generateString(8));
+          }
+  });
+
     var table = $('.devan').DataTable({
         processing: true,
         serverSide: true,
@@ -118,47 +218,6 @@ $('#link').change(function(){
     });
 </script>
 
-<script>
-    $(document).on('click', '.delete-data-table', function (a) {
-        a.preventDefault();
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you realy want to delete this records? This process cannot be undone.",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Delete!'
-        }).then((result) => {
-            if (result.value) {
-                a.preventDefault();
-                var url = $(this).attr('href');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url: url,
-                    method: 'delete',
-                    success: function () {
-                        Swal.fire(
-                            'Deleted!',
-                            'data has been deleted.',
-                            'success'
-                        )
-                        table.ajax.reload();
-                        if (typeof table2) {
-                            table2.ajax.reload();
-                        }
-                    }
-                })
-            }
-        })
-    });
-</script>
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
@@ -166,45 +225,5 @@ $('#link').change(function(){
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
 {!! JsValidator::formRequest('App\Http\Requests\Validation') !!}
-
-<script type="text/javascript">
-    (function ($) {
-            "use strict";
-            var fullHeight = function () {
-                $('.js-fullheight').css('height', $(window).height());
-                $(window).resize(function () {
-                    $('.js-fullheight').css('height', $(window).height());
-                });
-            };
-            fullHeight();
-            $(".toggle-password").click(function () {
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                var input = $($(this).attr("toggle"));
-                if (input.attr("type") == "password") {
-                    input.attr("type", "text");
-                } else {
-                    input.attr("type", "password");
-                }
-            });
-    })(jQuery);
-</script>
-
-<script type="text/javascript">
-    function sweetAlert() 
-    {  
-        Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-        })
-    }
-
-    @if(session('statusnya'))
-    sweetAlert();
-    @endif
-</script>
-
-
-</body>
-</html>
+  
+@endpush
