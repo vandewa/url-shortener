@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\Validation;
 use Yajra\DataTables\Facades\DataTables;
 use DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ShortLinkController extends Controller
 {
@@ -46,7 +47,14 @@ class ShortLinkController extends Controller
                         return '<spa n class="badge badge-success">Active</span>'  ;
                     }
                 })
-                ->rawColumns(['code', 'action', 'status'])
+                ->addColumn('qrcode', function ($a){
+                    $actionBtn = '
+                    <div class="">
+                    <a href="'.route('generate-shorten-link.show', $a->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Generate QrCode" ><i class="fa fa-qrcode mr-1"></i> Generate</a>
+                    </div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['code', 'action', 'status', 'qrcode'])
                 ->make(true);
         }
         
@@ -72,7 +80,6 @@ class ShortLinkController extends Controller
     public function store(Validation $request)
     {
        
-    
         if(filled($request->code)){
            $code = $request->code;
         } else {
@@ -95,7 +102,9 @@ class ShortLinkController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = ShortLink::find($id);
+        $qrcode = QrCode::size(400)->eye('circle')->style('round')->generate(url('').'/'.$data->code);
+        return $qrcode;
     }
 
     /**

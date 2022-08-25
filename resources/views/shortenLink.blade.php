@@ -51,6 +51,7 @@
                           <th>#</th>
                           <th>Short Link</th>
                           <th>Link</th>
+                          <th>QR Code</th>
                           <th>Status</th>
                           {{-- <th>Aksi</th> --}}
                       </tr>
@@ -212,6 +213,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false, className: "text-left"},
             {data: 'code', name:'code'},
             {data: 'link', name:'link'},
+            {data: 'qrcode', name:'qrcode'},
             {data: 'status', name:'status'},
             // {data: 'action', name: 'action', orderable: false, searchable: false, className: "text-center"},
         ]
