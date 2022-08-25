@@ -9,6 +9,7 @@ use App\Http\Requests\Validation;
 use Yajra\DataTables\Facades\DataTables;
 use DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Session;
 
 class ShortLinkController extends Controller
 {
@@ -19,10 +20,13 @@ class ShortLinkController extends Controller
      */
     public function index(Request $request)
     {
-
         if($request->ajax()){
             
             $data = ShortLink::orderBy('created_at','desc');
+
+            if($request->filled('id')){
+                $data->where('id', $request->id);
+            }
             
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -50,7 +54,7 @@ class ShortLinkController extends Controller
                 ->addColumn('qrcode', function ($a){
                     $actionBtn = '
                     <div class="">
-                    <a href="'.route('generate-shorten-link.show', $a->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Generate QrCode" ><i class="fa fa-qrcode mr-1"></i> Generate</a>
+                    <a href="#" class="btn btn-outline-info round btn-min-width mr-1"  data-placement="top" title="Generate QrCode" data-toggle="modal" data-target="#exampleModal" ><i class="fa fa-qrcode mr-1"></i> Generate</a>
                     </div>';
                     return $actionBtn;
                 })
@@ -85,12 +89,14 @@ class ShortLinkController extends Controller
         } else {
             $code = Str::random(6);
         }
-        ShortLink::create([
+        $a = ShortLink::create([
             'link' => $request->link,
             'code' => $code
         ]);
    
-         return redirect('generate-shorten-link')
+        Session::flash('keterangan', $a->id);
+
+        return redirect('generate-shorten-link')
               ->with('success', 'Shorten Link Generated Successfully!');
     }
 
@@ -103,8 +109,24 @@ class ShortLinkController extends Controller
     public function show($id)
     {
         $data = ShortLink::find($id);
-        $qrcode = QrCode::size(400)->eye('circle')->style('round')->generate(url('').'/'.$data->code);
-        return $qrcode;
+        $qrcode = QrCode::size(400)->generate(url('').'/'.$data->code);
+
+        // return $qrcode;
+         
+        // $image = QrCode::format('png')
+        //                  ->merge('images/pemda.png', 0.5, true)
+        //                  ->size(500)->errorCorrection('H')
+        //                  ->generate('A simple example of QR code!');
+        // return response($image)->header('Content-type','image/png');
+
+        // $myFile = public_path("dummy_pdf.pdf");
+    	// $headers = ['Content-Type: application/pdf'];
+    	// $newName = 'itsolutionstuff-pdf-file-'.time().'.pdf';
+
+    	// return response()->download($myFile, $newName, $headers);
+
+
+        return view('shortenLink');
     }
 
     /**

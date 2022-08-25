@@ -32,7 +32,7 @@
           </div>
 
           <div class="col-md-6">
-            <div class="position-relative">
+            <div class="position-relative d-none d-sm-none d-sm-block">
               <img class="img-fluid rounded-lg transition-3d-hover butn2" src="{{ asset('image/indonesia-independence-day.svg')}}" alt="Image Description">
               {{-- <div class="position-absolute top-0 right-0 w-100 h-100 bg-soft-primary rounded-lg z-index-n1 mt-5 mr-n5"></div> --}}
             </div>
@@ -44,6 +44,7 @@
                       <p>{{ Session::get('success') }}</p>
                   </div>
               @endif
+            @if (Session::has('success'))     
             <div class="table-responsive"> 
               <table class="table table-hover devan ">
                   <thead class="thead-dark">
@@ -51,7 +52,7 @@
                           <th>#</th>
                           <th>Short Link</th>
                           <th>Link</th>
-                          <th>QR Code</th>
+                          {{-- <th>QR Code</th> --}}
                           <th>Status</th>
                           {{-- <th>Aksi</th> --}}
                       </tr>
@@ -60,14 +61,40 @@
                   </tbody>
               </table>
             </div>
+            @endif
           </div>
 
         </div>
       </div>
     </div>
     <!-- End Hero Section -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id="qrcode"></div>
+           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   </main>
   <!-- ========== END MAIN CONTENT ========== -->
+
+
 @endsection
 
 @push('css')
@@ -208,17 +235,20 @@
         processing: true,
         serverSide: true,
         responsive: true,
-        ajax: window.location.href,
+        sDom: 't',
+        ajax: window.location.href+`?id={{ Session::get('keterangan')??'' }}`,
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false, className: "text-left"},
             {data: 'code', name:'code'},
             {data: 'link', name:'link'},
-            {data: 'qrcode', name:'qrcode'},
+            // {data: 'qrcode', name:'qrcode'},
             {data: 'status', name:'status'},
             // {data: 'action', name: 'action', orderable: false, searchable: false, className: "text-center"},
         ]
     });
+
 </script>
+
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -227,5 +257,9 @@
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
 {!! JsValidator::formRequest('App\Http\Requests\Validation') !!}
+
+<script type="text/javascript">
+    new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
+</script>
   
 @endpush
