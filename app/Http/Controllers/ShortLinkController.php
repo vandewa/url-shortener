@@ -96,7 +96,7 @@ class ShortLinkController extends Controller
    
         Session::flash('keterangan', $a->id);
 
-        return redirect('generate-shorten-link')
+        return redirect('/')
               ->with('success', 'Shorten Link Generated Successfully!');
     }
 
