@@ -166,48 +166,51 @@ class ShortLinkController extends Controller
     public function shortenLink($code, Request $request)
     {
         $find = ShortLink::where('code', $code)->first();
+        if($find){
+            $awal  = $find->created_at;
+            $akhir = date_create(); // waktu sekarang
+            $diff  = date_diff( $awal, $akhir );
 
-        $awal  = $find->created_at;
-        $akhir = date_create(); // waktu sekarang
-        $diff  = date_diff( $awal, $akhir );
-
-        if($diff->days > 30){
+            if($diff->days > 30){
 
 
-            if($request->ajax()){
-            
-                $data = ShortLink::where('code', $code)->where('created_at','<', DB::raw("date_sub(now(), interval 1 month)"))->orderBy('created_at','desc');
+                if($request->ajax()){
                 
-                return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('status', function ($a) {
-                        $awal  = $a->created_at;
-                        $akhir = date_create(); // waktu sekarang
-                        $diff  = date_diff( $awal, $akhir );
-                
-                        if($diff->days > 30){
-                            return '<span class="badge badge-danger">Non Active</span>'  ;
-                        }else {
-                            return '<spa n class="badge badge-success">Active</span>'  ;
-                        }
-                    })
-                    ->editColumn('link', function ($a) {
-                        return '<a target="_blank" href="'.url($a->link).'">'.url($a->link).'</a>'  ;
-                    })
-                    ->rawColumns(['link', 'status'])
-                    ->make(true);
+                    $data = ShortLink::where('code', $code)->where('created_at','<', DB::raw("date_sub(now(), interval 1 month)"))->orderBy('created_at','desc');
+                    
+                    return DataTables::of($data)
+                        ->addIndexColumn()
+                        ->addColumn('status', function ($a) {
+                            $awal  = $a->created_at;
+                            $akhir = date_create(); // waktu sekarang
+                            $diff  = date_diff( $awal, $akhir );
+                    
+                            if($diff->days > 30){
+                                return '<span class="badge badge-danger">Non Active</span>'  ;
+                            }else {
+                                return '<spa n class="badge badge-success">Active</span>'  ;
+                            }
+                        })
+                        ->editColumn('link', function ($a) {
+                            return '<a target="_blank" href="'.url($a->link).'">'.url($a->link).'</a>'  ;
+                        })
+                        ->rawColumns(['link', 'status'])
+                        ->make(true);
+                }
+
+                // $find = ShortLink::where('code', $code)->get();
+
+                return view('listLink');
+
+            //    return redirect(route('generate-shorten-link.index'))->with('statusnya', 'oke');
+                    // echo "<script>";
+                    // echo "alert('Mohon maaf, link sudah expired');";
+                    // echo "</script>";
+            } else {
+                return redirect($find->link);
             }
-
-            // $find = ShortLink::where('code', $code)->get();
-
-            return view('listLink');
-
-        //    return redirect(route('generate-shorten-link.index'))->with('statusnya', 'oke');
-                // echo "<script>";
-                // echo "alert('Mohon maaf, link sudah expired');";
-                // echo "</script>";
         } else {
-            return redirect($find->link);
+            return view('notfound');
         }
    
     }

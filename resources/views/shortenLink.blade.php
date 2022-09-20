@@ -9,9 +9,6 @@
         <div class="row justify-content-lg-between align-items-md-center">
           <div class="col-md-6 col-lg-5 mb-7 mb-md-0">
             <div class="mb-5">
-              {{-- <span class="d-block small font-weight-bold text-cap mb-2">Who we are?</span>
-              <h1 class="display-4 mb-3">The Shortest Link Shortener</h1>
-              <p class="lead">Kabupaten Wonosobo</p> --}}
               <img src="{{ asset('image/a.gif') }}" alt="" style="width: 100%">
             </div>
             <!-- Form -->
