@@ -3,33 +3,35 @@
 <head>
     <link rel="shortcut icon" href="{{ asset('image/soul.ico')}}">
     <title>URL SHORTENER KABUPATEN WONOSOBO</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="csrf-token" content="{{csrf_token()}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
-.bg {
-  /* The image used */
-  background-image: url({{ asset('image/404.png') }});
-
-  /* Full height */
-  height: 100%; 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-</style>
 </head>
 <body>
-
-<div class="bg"></div>
-
+  
+<div class="background-image"></div>
 </body>
+<style>
+  * { 
+    margin: 0;
+    padding: 0;
+  }
+
+.background-image {
+  background-image: url({{ asset('image/404.png') }});
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+@media only screen and (min-device-width: 480px){
+
+.background-image {
+  background-image: url({{ asset('image/404.png') }});
+  background-position: 80% 80%;
+  background-size: cover;
+  }
+}
+
+
+</style>
 </html>
