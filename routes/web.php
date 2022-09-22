@@ -15,7 +15,7 @@ use App\Http\Controllers\ShortLinkController;
 */
 
 
-Route::get('/', [ShortLinkController::class, 'index']);
+Route::get('/', [ShortLinkController::class, 'index'])->name('index');
 Route::resource('generate-shorten-link', ShortLinkController::class);
 
 Route::get('{code}', [ShortLinkController::class, 'shortenLink'])->name('shorten.link');
