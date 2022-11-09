@@ -27,6 +27,10 @@
   <!-- CSS Front Template -->
   <link rel="stylesheet" href="{{ asset('front/assets/css/theme.min.css')}}">
   @stack('css')
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4623751537139602"
+     crossorigin="anonymous"></script>
+     
 </head>
 <body>
   <!-- ========== HEADER ========== -->
