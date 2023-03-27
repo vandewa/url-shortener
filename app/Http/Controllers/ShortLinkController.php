@@ -45,7 +45,7 @@ class ShortLinkController extends Controller
                     $akhir = date_create(); // waktu sekarang
                     $diff  = date_diff( $awal, $akhir );
             
-                    if($diff->days > 30){
+                    if($diff->days > 60){
                         return '<span class="badge badge-danger">Non Active</span>'  ;
                     }else {
                         return '<spa n class="badge badge-success">Active</span>'  ;
@@ -171,12 +171,11 @@ class ShortLinkController extends Controller
             $akhir = date_create(); // waktu sekarang
             $diff  = date_diff( $awal, $akhir );
 
-            if($diff->days > 30){
-
+            if($diff->days > 60){
 
                 if($request->ajax()){
                 
-                    $data = ShortLink::where('code', $code)->where('created_at','<', DB::raw("date_sub(now(), interval 1 month)"))->orderBy('created_at','desc');
+                    $data = ShortLink::where('code', $code)->where('created_at','<', DB::raw("date_sub(now(), interval 2 month)"))->orderBy('created_at','desc');
                     
                     return DataTables::of($data)
                         ->addIndexColumn()
@@ -185,7 +184,7 @@ class ShortLinkController extends Controller
                             $akhir = date_create(); // waktu sekarang
                             $diff  = date_diff( $awal, $akhir );
                     
-                            if($diff->days > 30){
+                            if($diff->days > 60){
                                 return '<span class="badge badge-danger">Non Active</span>'  ;
                             }else {
                                 return '<spa n class="badge badge-success">Active</span>'  ;
