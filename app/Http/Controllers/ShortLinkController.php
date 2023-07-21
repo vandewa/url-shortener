@@ -171,7 +171,7 @@ class ShortLinkController extends Controller
             $akhir = date_create(); // waktu sekarang
             $diff  = date_diff( $awal, $akhir );
 
-            if($diff->days > 60){
+            if($diff->days > 6000){
 
                 if($request->ajax()){
                 
