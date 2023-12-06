@@ -5,7 +5,7 @@
   <main id="content" role="main">
     <!-- Hero Section -->
     <div class="overflow-hidden">
-      <div class="container space-top-1 space-top-md-2 space-bottom-3">
+      <div class="container space-top-3 space-top-md-4 space-bottom-3">
         <div class="row justify-content-lg-between align-items-md-center">
           <div class="col-md-6 col-lg-5 mb-7 mb-md-0">
             <div class="mb-5">
@@ -30,7 +30,7 @@
 
           <div class="col-md-6">
             <div class="position-relative d-none d-sm-none d-sm-block">
-              <img class="img-fluid rounded-lg transition-3d-hover butn2" src="{{ asset('image/indonesia-independence-day.svg')}}" alt="Image Description">
+              <img class="img-fluid rounded-lg transition-3d-hover butn2" src="{{ asset('hebat.png')}}" alt="Image Description">
               {{-- <div class="position-absolute top-0 right-0 w-100 h-100 bg-soft-primary rounded-lg z-index-n1 mt-5 mr-n5"></div> --}}
             </div>
           </div>
