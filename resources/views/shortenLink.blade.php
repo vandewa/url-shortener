@@ -30,7 +30,13 @@
 
           <div class="col-md-6">
             <div class="position-relative d-none d-sm-none d-sm-block">
-              <img class="img-fluid rounded-lg transition-3d-hover butn2" src="{{ asset('hebat.png')}}" alt="Image Description">
+              <img class="img-fluid rounded-lg transition-3d-hover butn2 mb-5" src="{{ asset('hebat.png')}}" alt="Image Description">
+                <a href="https://ayopromo.com" target="_blank">
+                  <img class="img-fluid rounded-lg transition-3d-hover butn2 mb-5" src="{{ asset('ayopromo.png')}}" alt="Image Description">
+                </a>
+                <a href="https://sobo-aksi.wonosobokab.go.id/" target="_blank">
+                    <img class="img-fluid rounded-lg transition-3d-hover butn2 mb-5" src="{{ asset('soboaksi.png')}}" alt="Image Description">
+                </a>
               {{-- <div class="position-absolute top-0 right-0 w-100 h-100 bg-soft-primary rounded-lg z-index-n1 mt-5 mr-n5"></div> --}}
             </div>
           </div>
